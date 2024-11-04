@@ -1,13 +1,13 @@
 {
-  "name": "xonsh",
-  "displayName": "Xonsh IDE",
+  "name": "xonsh2",
+  "displayName": "Xonsh VS Code",
   "description": "Xonsh language support.",
-  "version": "0.3.4",
-  "publisher": "jnoortheen",
-  "icon": "images/icon.png",
+  "version": "0.0.2",
+  "publisher": "microhobby",
+  "icon": "images/xonshicon.png",
   "license": "MIT",
   "engines": {
-    "vscode": ">=1.75.0"
+    "vscode": ">=1.94.0"
   },
   "extensionKind": [
     "workspace"
@@ -23,12 +23,12 @@
     "IDE"
   ],
   "bugs": {
-    "url": "https://github.com/jnoortheen/xonsh-vscode-ext/issues"
+    "url": "https://github.com/microhobby/vscode-xonsh/issues"
   },
-  "homepage": "https://github.com/jnoortheen/xonsh-vscode-ext",
+  "homepage": "https://github.com/microhobby/vscode-xonsh",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jnoortheen/xonsh-vscode-ext"
+    "url": "https://github.com/microhobby/vscode-xonsh"
   },
   "main": "dist/index.js",
   "activationEvents": [],
