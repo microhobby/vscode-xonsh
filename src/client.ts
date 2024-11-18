@@ -11,6 +11,8 @@ function getClientOptions(): LanguageClientOptions {
   const docSelector: { scheme: string; language: string }[] = [
     { scheme: 'file', language: 'xonsh' },
     { scheme: 'untitled', language: 'xonsh' },
+    { scheme: 'file', language: 'pybraces' },
+    { scheme: 'untitled', language: 'pybraces' },
   ];
 
   return   {
@@ -18,6 +20,7 @@ function getClientOptions(): LanguageClientOptions {
     synchronize: {
       fileEvents: [
         workspace.createFileSystemWatcher('**/*.xsh'),
+        workspace.createFileSystemWatcher('**/*.by'),
       ],
       configurationSection: 'pylsp',
     },
