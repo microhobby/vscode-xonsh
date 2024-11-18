@@ -17,9 +17,21 @@ import { which } from './which';
 import { UriMessageItem } from './models';
 
 function getExePath(): string | undefined {
-  const executable = workspace
+  let executable = workspace
     .getConfiguration('pylsp')
     .get<string>('executable');
+
+  // check if the user is using the workspaceFolder variable
+  if (executable?.startsWith('${workspaceFolder}')) {
+    const workspaceFolder = workspace.workspaceFolders?.[0];
+
+    if (workspaceFolder) {
+      executable = executable.replace(
+        '${workspaceFolder}', workspaceFolder.uri.fsPath
+      );
+    }
+  }
+
   if (executable) {
     const isWindows = process.platform === 'win32';
     return which(
@@ -29,6 +41,7 @@ function getExePath(): string | undefined {
     );
   }
 }
+
 async function checkServerInstalled(): Promise<string | undefined> {
   const executable = getExePath();
   if (executable === undefined || executable === '') {
