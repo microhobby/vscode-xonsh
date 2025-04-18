@@ -7,6 +7,8 @@ firstLineMatch: ^#![ \t]*/.*\bxonsh[\d\.]*\b
 uuid: 742deb57-6e38-4192-bed6-410746efd85d
 
 patterns:
+  - name: support.function.builtin.shell.xonsh
+    match: '(?:^|\|)\s*(?![A-Za-z_]\w*(?:\s*(?:[:=]|:=)|\.))([A-Za-z_]\w*)\b'
   - include: '#statement'
   - include: '#expression'
 
@@ -395,6 +397,7 @@ repository:
       - include: '#illegal-anno'
       - include: '#literal'
       - include: '#regexp'
+      - include: '#cli-argument'
       - include: '#string'
       - include: '#lambda'
       - include: '#generator'
@@ -409,13 +412,6 @@ repository:
       - include: '#builtin-functions'
       - include: '#builtin-types'
       - include: '#builtin-exceptions'
-      - include: '#magic-names'
-      - include: '#special-names'
-      - include: '#illegal-names'
-      - include: '#special-variables'
-      - include: '#ellipsis'
-      - include: '#punctuation'
-      - include: '#line-continuation'
 
   expression-base:
     comment: valid Python expressions with comments and line continuation
@@ -428,28 +424,17 @@ repository:
     comment: All valid Python expressions
     patterns:
       - include: '#expression-base'
+      - name: variable.other.object.python
+        match: '\b([A-Za-z_]\w*)(?=\.\w)'
       - include: '#member-access'
       - comment: Tokenize identifiers to help linters
-        match: (?x) \b ([[:alpha:]_]\w*) \b
+      - match: (?x) \b ([[:alpha:]_]\w*) \b
 
   member-access:
-    name: meta.member.access.python
-    begin: (\.)\s*(?!\.)
-    end: |
-      (?x)
-        # stop when you've just read non-whitespace followed by non-word
-        # i.e. when finished reading an identifier or function call
-        (?<=\S)(?=\W) |
-        # stop when seeing the start of something that's not a word,
-        # i.e. when seeing a non-identifier
-        (^|(?<=\s))(?=[^\\\w\s]) |
-        $
-    beginCaptures:
-      '1': {name: punctuation.separator.period.python}
     patterns:
       - include: '#function-call'
-      - include: '#member-access-base'
       - include: '#member-access-attribute'
+      - include: '#member-access-base'
 
   member-access-base:
     patterns:
@@ -462,7 +447,7 @@ repository:
 
   member-access-attribute:
     comment: Highlight attribute access in otherwise non-specialized cases.
-    name: meta.attribute.python
+    name: variable.other.property.python
     match: |
       (?x)
         \b ([[:alpha:]_]\w*) \b
@@ -1275,7 +1260,7 @@ repository:
     patterns:
       - include: '#builtin-possible-callables'
       - comment: Some color schemas support meta.function-call.generic scope
-        name: meta.function-call.generic.python
+        name: entity.name.function.python
         match: |
           (?x)
             \b ([[:alpha:]_]\w*) \b
@@ -1506,4 +1491,8 @@ repository:
   illegal-anno:
     name: invalid.illegal.annotation.python
     match: '->'
+
+  cli-argument:
+    name: keyword.operator.unpacking.arguments.python
+    match: '(?<!\\w)--[A-Za-z0-9_-]+'
 ...
