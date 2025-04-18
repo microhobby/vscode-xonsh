@@ -2,7 +2,7 @@
   "name": "xonsh2",
   "displayName": "Xonsh VS Code",
   "description": "Xonsh language support.",
-  "version": "2.0.1",
+  "version": "2.0.4",
   "publisher": "microhobby",
   "icon": "images/xonshicon.png",
   "license": "MIT",
