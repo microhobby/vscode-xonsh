@@ -8,7 +8,7 @@ uuid: 742deb57-6e38-4192-bed6-410746efd85d
 
 patterns:
   - name: support.function.builtin.shell.xonsh
-    match: '(?:^|\|)\s*(?![A-Za-z_]\w*(?:\s*(?:[:=]|:=)|\.))([A-Za-z_]\w*)\b'
+    match: '(?:^|\|)\s*(?!\b(?:def|if|else|for|while|try|except|finally|with|as|return|break|continue|pass|raise|yield|import|from|global|nonlocal|assert|del|lambda|class|elif|and|or|not|is|in)\b)([A-Za-z_]\w*)\b'
   - include: '#statement'
   - include: '#expression'
 
